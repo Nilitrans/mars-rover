@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RoverSystemTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-05T16:35:03" hostname="Menghans-MacBook-Pro.local" time="0.097">
+  <properties/>
+  <testcase name="should_create_empty_coordinate_with_first_line_input()" classname="RoverSystemTest" time="0.097"/>
+  <system-out><![CDATA[右上角的坐标为（1,2）
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
