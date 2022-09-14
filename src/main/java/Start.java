@@ -7,8 +7,6 @@ public class Start {
     public static void main(String[] args) {
         int topX;
         int topY;
-        Rover rover = new Rover(0,0,"N");
-        List<Rover> outputList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         System.out.println("请输入：");
         topX = sc.nextInt();
@@ -17,11 +15,12 @@ public class Start {
         while(!sc.hasNext("OUT")){
             int x = sc.nextInt();
             int y = sc.nextInt();
-            String direction = sc.next();
-            rover = new Rover(x,y,direction);
-            roverSystem.getFinalCoordinate(rover,outputList,sc);
+            Position initPos = Position.valueOf(sc.next());
+            Rover rover = new Rover(x,y,initPos);
+            String instruction = sc.next();
+            roverSystem.processInstruction(rover,instruction);
         }
-        roverSystem.getTopRightCoordinate();
-        rover.getCoordinate();
+        roverSystem.generateOutput();
     }
+
 }

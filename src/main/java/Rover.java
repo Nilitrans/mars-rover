@@ -1,17 +1,16 @@
-public class Rover {
+class Rover {
     private int x;
     private int y;
-    private String direction;
+    private Position position;
 
-    public Rover(int x, int y, String direction) {
+    public Rover(int x, int y, Position position) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
+        this.position = position;
     }
 
-    public void getCoordinate() {
-        String output = String.format("火星车当前的坐标为（%d,%d,%s）", x, y, direction);
-        System.out.println(output);
+    public String getCoordinate() {
+        return String.format("火星车当前的坐标为（%d,%d,%s）", x, y, position);
     }
 
     public int getX() {
@@ -22,68 +21,59 @@ public class Rover {
         return y;
     }
 
-    public String getDirection() {
-        return direction;
+    public Position getDirection() {
+        return position;
     }
 
     public void moveForward() {
-        switch (this.direction) {
-            case "E":
+        switch (this.position) {
+            case E:
                 this.x += 1;
                 break;
-            case "S":
+            case S:
                 this.y -= 1;
                 break;
-            case "W":
+            case W:
                 this.x -= 1;
                 break;
-            case "N":
+            case N:
                 this.y += 1;
                 break;
         }
     }
 
     public void turnLeft() {
-        switch (this.direction) {
-            case "E":
-                this.direction = "N";
+        switch (this.position) {
+            case E:
+                this.position = Position.N;
                 break;
-            case "S":
-                this.direction = "E";
+            case S:
+                this.position = Position.E;
                 break;
-            case "W":
-                this.direction = "S";
+            case W:
+                this.position = Position.S;
                 break;
-            case "N":
-                this.direction = "W";
+            case N:
+                this.position = Position.W;
                 break;
         }
     }
 
 
     public void turnRight () {
-        switch (this.direction) {
-            case "E":
-                this.direction = "S";
+        switch (this.position) {
+            case E:
+                this.position = Position.S;
                 break;
-            case "S":
-                this.direction = "W";
+            case S:
+                this.position = Position.W;
                 break;
-            case "W":
-                this.direction = "N";
+            case W:
+                this.position = Position.N;
                 break;
-            case "N":
-                this.direction = "E";
+            case N:
+                this.position = Position.E;
                 break;
         }
         }
-
-    @Override
-    public String toString() {
-        return "Rover{" +
-                "x=" + x +
-                ", y=" + y +
-                ", direction='" + direction + '\'' +
-                '}';
-    }
 }

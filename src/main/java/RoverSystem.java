@@ -1,11 +1,11 @@
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class RoverSystem {
+class RoverSystem {
     private final Integer topX;
     private final Integer topY;
-    protected List<Rover> outputList;
+    private List<Rover> outputList = new ArrayList<>();
 
     private boolean checkBoundary(Rover rover){
         return rover.getX()<topX ||rover.getY()>topY;
@@ -16,47 +16,46 @@ public class RoverSystem {
         this.topY = topY;
     }
 
-    public void getTopRightCoordinate(){
-        String output = String.format("右上角的坐标为（%d,%d）", topX,topY);
-        System.out.println(output);
-    }
-
-    public void getFinalCoordinate(Rover rover, List<Rover> outputList, Scanner sc) {
-        boolean processSuccessfully = true;
-        if(checkBoundary(rover)){
-            String instruction = sc.next();
-            if(instruction!=null && instruction.length()>0) {
-                char[] strChar = instruction.toCharArray();
-                for(char chr : strChar){
-                    switch (String.valueOf(chr)) {
-                        case "M":
-                            rover.moveForward();
-                            break;
-                        case "L":
-                            rover.turnLeft();
-                            break;
-                        case "R":
-                            rover.turnRight();
-                            break;
-                        default:
-                            System.out.println("Bad instruction declare");
-                            processSuccessfully =false;
-                            break;
-                    }
-                }
-            }
-            if(processSuccessfully){
-                outputList.add(rover);
+    public void getFinalCoordinate(Rover rover, List<Command> commands) {
+        if (checkBoundary(rover)) {
+            for (Command command : commands) {
+                executeCommand(rover, command);
             }
         }
+        outputList.add(rover);
+    }
+
+    private void executeCommand(Rover rover, Command command) {
+        switch (command) {
+            case L:
+                rover.turnLeft();
+                break;
+            case R:
+                rover.turnRight();
+                break;
+            case M:
+                rover.moveForward();
+                break;
+            default:
+                System.out.println("Bad instruction declare");
+                break;
+        }
+    }
+
+    public void processInstruction(Rover rover,String instruction) {
+        List<Command> convertedList = new ArrayList<>();
+        char[] charArr = instruction.toCharArray();
+        for(char chr: charArr){
+            convertedList.add(Command.valueOf(String.valueOf(chr)));
+        }
+        getFinalCoordinate(rover, convertedList);
     }
 
     public void generateOutput(){
         StringBuilder outputString = new StringBuilder();
         outputList.forEach(rover -> {
-            outputString.append(String.format("%d %d %s",rover.getX(), rover.getY(), rover.getDirection()));
+            outputString.append(String.format("%d %d %s \n",rover.getX(), rover.getY(), rover.getDirection()));
         });
         System.out.println(outputString);
     }
-
 }
