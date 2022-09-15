@@ -16,7 +16,7 @@ class RoverSystem {
         this.topY = topY;
     }
 
-    public void getFinalCoordinate(Rover rover, List<Command> commands) {
+    private void getFinalCoordinate(Rover rover, List<Command> commands) {
         if (checkBoundary(rover)) {
             for (Command command : commands) {
                 executeCommand(rover, command);
@@ -43,19 +43,21 @@ class RoverSystem {
     }
 
     public void processInstruction(Rover rover,String instruction) {
-        List<Command> convertedList = new ArrayList<>();
-        char[] charArr = instruction.toCharArray();
-        for(char chr: charArr){
-            convertedList.add(Command.valueOf(String.valueOf(chr)));
+        if(instruction.length()==0){
+            outputList.add(rover);
+        }else {
+            List<Command> convertedList = new ArrayList<>();
+            char[] charArr = instruction.toCharArray();
+            for (char chr : charArr) {
+                convertedList.add(Command.valueOf(String.valueOf(chr)));
+            }
+            getFinalCoordinate(rover, convertedList);
         }
-        getFinalCoordinate(rover, convertedList);
     }
 
-    public void generateOutput(){
+    public StringBuilder generateOutput(){
         StringBuilder outputString = new StringBuilder();
-        outputList.forEach(rover -> {
-            outputString.append(String.format("%d %d %s \n",rover.getX(), rover.getY(), rover.getDirection()));
-        });
-        System.out.println(outputString);
+        outputList.forEach(rover -> outputString.append(String.format("%d %d %s \n",rover.getX(), rover.getY(), rover.getDirection())));
+        return outputString;
     }
 }

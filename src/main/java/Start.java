@@ -20,7 +20,6 @@ public class Start {
             String instruction = sc.next();
             roverSystem.processInstruction(rover,instruction);
         }
-        roverSystem.generateOutput();
+        System.out.println(roverSystem.generateOutput());
     }
-
 }
