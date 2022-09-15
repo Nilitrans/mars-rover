@@ -19,13 +19,53 @@ class RoverSystemTest {
     class withinTheCoordinate{
         RoverSystem roverSystem = new RoverSystem(5,5);
         @Test
-        void should_return_the_start_point_when_given_no_instruction() {
+        void given_1_1_N_should_return_the_start_point_when_given_no_instruction() {
             Rover rover = new Rover(1,1, Position.N);
             String instruction = "";
 
             roverSystem.processInstruction(rover,instruction);
 
             assertEquals("1 1 N \n",roverSystem.generateOutput().toString());
+        }
+
+        @Test
+        void given_1_1_N_should_return_1_1_E_when_given_turn_right() {
+            Rover rover = new Rover(1,1, Position.N);
+            String instruction = "R";
+
+            roverSystem.processInstruction(rover,instruction);
+
+            assertEquals("1 1 E \n",roverSystem.generateOutput().toString());
+        }
+
+        @Test
+        void given_1_1_N_should_return_1_1_W_when_given_turn_left() {
+            Rover rover = new Rover(1,1, Position.N);
+            String instruction = "R";
+
+            roverSystem.processInstruction(rover,instruction);
+
+            assertEquals("1 1 E \n",roverSystem.generateOutput().toString());
+        }
+
+        @Test
+        void given_1_1_N_should_return_1_2_N_when_move_forward() {
+            Rover rover = new Rover(1,1, Position.N);
+            String instruction = "M";
+
+            roverSystem.processInstruction(rover,instruction);
+
+            assertEquals("1 2 N \n",roverSystem.generateOutput().toString());
+        }
+
+        @Test
+        void given_1_1_E_should_return_2_1_E_when_move_forward() {
+            Rover rover = new Rover(1,1, Position.E);
+            String instruction = "M";
+
+            roverSystem.processInstruction(rover,instruction);
+
+            assertEquals("2 1 E \n",roverSystem.generateOutput().toString());
         }
     }
 
