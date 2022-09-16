@@ -86,4 +86,16 @@ class RoverSystemTest {
         }
     }
 
+    @Nested
+    class beyondTheCoordinate{
+        @Test
+        void given_4_4_N_should_return_edge_point_4_5_N_when_given_MM() {
+            Rover rover = new Rover(4,4, Position.N);
+            String instruction = "MM";
+
+            roverSystem.processInstruction(rover,instruction);
+
+            assertEquals("4 5 N \n",roverSystem.generateOutput().toString());
+        }
+    }
 }

@@ -7,8 +7,23 @@ class RoverSystem {
     private final Integer topY;
     private List<Rover> outputList = new ArrayList<>();
 
-    private boolean checkBoundary(Rover rover){
-        return rover.getX()<topX ||rover.getY()>topY;
+    private boolean beyondBoundary(Rover rover){
+        boolean unableToMoveForward = true;
+        switch (rover.getDirection()) {
+            case N:
+                unableToMoveForward = rover.getY()+1>topY;
+                break;
+            case S:
+                unableToMoveForward = rover.getY()-1<0;
+                break;
+            case E:
+                unableToMoveForward = rover.getX()+1>topX;
+                break;
+            case W:
+                unableToMoveForward = rover.getX()-1<0;
+                break;
+        }
+        return unableToMoveForward;
     }
 
     public RoverSystem(int topX, int topY) {
@@ -17,15 +32,15 @@ class RoverSystem {
     }
 
     private void getFinalCoordinate(Rover rover, List<Command> commands) {
-        if (checkBoundary(rover)) {
-            for (Command command : commands) {
-                executeCommand(rover, command);
-            }
+
+        for(Command command : commands){
+           executeCommand(rover, command);
         }
         outputList.add(rover);
     }
 
     private void executeCommand(Rover rover, Command command) {
+
         switch (command) {
             case L:
                 rover.turnLeft();
@@ -34,7 +49,9 @@ class RoverSystem {
                 rover.turnRight();
                 break;
             case M:
-                rover.moveForward();
+                if(!beyondBoundary(rover)){
+                    rover.moveForward();
+                }
                 break;
             default:
                 System.out.println("Bad instruction declare");
